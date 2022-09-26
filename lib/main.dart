@@ -55,6 +55,11 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             );
           }),
+          ElevatedButton(
+              onPressed: () {
+                print('add to favorite');
+              },
+              child: const Text('favorite')),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
