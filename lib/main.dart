@@ -37,7 +37,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Container(),
+      body: Column(
+        children: <Widget>[
+          Image.network(
+              'https://apod.nasa.gov/apod/image/2209/WaterlessEarth2_woodshole_2520.jpg'),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
