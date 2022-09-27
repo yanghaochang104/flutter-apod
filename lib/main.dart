@@ -63,11 +63,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
                   }),
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      print('add to favorite');
-                    },
-                    child: const Text('favorite')),
+                Positioned(
+                  top: 10.0,
+                  right: 10.0,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        print('add to favorite');
+                      },
+                      child: const Text('favorite')),
+                ),
               ],
             ),
             const Text(
