@@ -1,3 +1,6 @@
+import 'package:apod/pages/calendar_page.dart';
+import 'package:apod/pages/favorite_page.dart';
+import 'package:apod/pages/main_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,29 +17,44 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: '今日照片'),
+      home: const MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+enum NoteType {
+  text,
+  editable,
+}
 
-  final String title;
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final int _selectedIndex = 1;
+  int _selectedIndex = 1;
 
+  final List<Map<String, dynamic>> _pages = [
+    {
+      'title': '月曆',
+      'widget': const CalendarPage(),
+    },
+    {
+      'title': '今日照片',
+      'widget': const MainPage(),
+    },
+    {'title': '我的收藏', 'widget': const FavoritePage()}
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(_pages[_selectedIndex]['title']),
       ),
+      body: _pages[_selectedIndex]['widget'],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -53,6 +71,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
         currentIndex: _selectedIndex,
+        onTap: (int index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
         selectedItemColor: Colors.blue,
         selectedFontSize: 14,
         unselectedFontSize: 14,
