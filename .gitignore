@@ -32,6 +32,8 @@ migrate_working_dir/
 .pub/
 /build/
 
+/lib/keys
+
 # Symbolication related
 app.*.symbols
 

@@ -1,10 +1,6 @@
 import 'package:apod/Pages/main_page.dart';
 import 'package:flutter/material.dart';
 
-import '../main.dart';
-
-import '../main.dart';
-
 class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});
 
