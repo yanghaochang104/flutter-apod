@@ -83,10 +83,15 @@ class _MainPageState extends State<MainPage> {
                       top: 10.0,
                       right: 10.0,
                       child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white24),
                           onPressed: () {
                             print('add to favorite');
                           },
-                          child: const Text('favorite')),
+                          child: Icon(
+                            Icons.favorite,
+                            color: Colors.pink[200],
+                          )),
                     ),
                   ],
                 ),
