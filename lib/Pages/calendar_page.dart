@@ -1,3 +1,4 @@
+import 'package:apod/widgets/astro_picture.dart';
 import 'package:apod/widgets/calendar_day_cell.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -30,6 +31,21 @@ class _CalendarPageState extends State<CalendarPage> {
                 _focusedDay = focusedDay; // 頁面停留的日期
               });
             },
+            onDayLongPressed: ((selectedDay, focusedDay) {
+              // 長按日期時導向該日的天文圖片頁面
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Scaffold(
+                    appBar: AppBar(
+                        title: Text(
+                            '${selectedDay.year}-${selectedDay.month}-${selectedDay.day}')),
+                    body: const AstroPicture(
+                        title: '',
+                        pictureUrl: '',
+                        desc: '',
+                        note: '',
+                        isFavorite: false));
+              }));
+            }),
             calendarBuilders: CalendarBuilders(
                 defaultBuilder: (context, day, focusedDay) =>
                     Center(child: CalendarDayCell(day: day)),
