@@ -1,4 +1,4 @@
-import 'package:apod/pages/main_page.dart';
+import 'package:apod/widgets/astro_picture.dart';
 import 'package:flutter/material.dart';
 
 class FavoritePage extends StatefulWidget {
@@ -26,7 +26,13 @@ class _FavoritePageState extends State<FavoritePage> {
                         appBar: AppBar(
                           title: const Text('one of the title'),
                         ),
-                        body: const MainPage());
+                        body: const AstroPicture(
+                          title: 'title of astro picture',
+                          pictureUrl: '',
+                          desc: 'desc',
+                          note: "don't know what to fill yet",
+                          isFavorite: false,
+                        )); // 要填什麼資料進去呢？？
                   }));
                 },
                 child: const Card(
