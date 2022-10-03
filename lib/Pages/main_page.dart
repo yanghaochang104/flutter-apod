@@ -2,6 +2,7 @@ import 'package:apod/widgets/astro_picture.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../api/constants.dart';
 import '../keys/api_key.dart';
 import '../model/apod_data.dart';
 
@@ -18,19 +19,8 @@ enum NoteType {
 }
 
 class _MainPageState extends State<MainPage> {
-  final String apodUrl = 'https://api.nasa.gov/planetary/apod';
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   Future<ApodData?> _fetchDailyApodData() async {
-    Uri url = Uri.parse('$apodUrl?api_key=$apiKey&thumbs=true');
+    Uri url = Uri.parse('$apodEndpoint?api_key=$apiKey&thumbs=true');
     final response = await http.get(url, headers: {
       'Content-type': 'application/json',
       'Accept': 'application/json',
