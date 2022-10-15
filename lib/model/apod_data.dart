@@ -4,8 +4,11 @@ class ApodData {
   final String mediaType;
   final String desc;
   final String date;
+  String note = '';
+  bool isFavorite = false;
 
-  ApodData(this.title, this.url, this.mediaType, this.desc, this.date);
+  ApodData(this.title, this.url, this.mediaType, this.desc, this.date,
+      this.note, this.isFavorite);
 
   ApodData.fromJson(Map<String, dynamic> json)
       : title = json['title'],
