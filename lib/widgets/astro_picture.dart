@@ -22,17 +22,36 @@ class AstroPicture extends StatefulWidget {
 class _AstroPictureState extends State<AstroPicture> {
   final TextEditingController _controller = TextEditingController();
   NoteType _noteType = NoteType.editable;
+  bool _isFavorite = false;
 
   @override
   void initState() {
     super.initState();
     _controller.text = widget.apodData.note;
+    _isFavorite = widget.apodData.isFavorite;
   }
 
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void addToFavorite(context, ApodData apodData) {
+    apodData.isFavorite = true;
+    Provider.of<FavoriteState>(context, listen: false)
+        .addToList(apodData); // 透過proivder.of直接調用FavoriteState的方法
+    setState(() {
+      _isFavorite = true;
+    });
+  }
+
+  void removeFromFavorite(context, ApodData apodData) {
+    apodData.isFavorite = false;
+    Provider.of<FavoriteState>(context, listen: false).removeFromList(apodData);
+    setState(() {
+      _isFavorite = false;
+    });
   }
 
   @override
@@ -83,9 +102,11 @@ class _AstroPictureState extends State<AstroPicture> {
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white24),
                         onPressed: () {
-                          addToFavorite(context, widget.apodData);
+                          _isFavorite == false
+                              ? addToFavorite(context, widget.apodData)
+                              : removeFromFavorite(context, widget.apodData);
                         },
-                        child: widget.apodData.isFavorite
+                        child: _isFavorite
                             ? Icon(
                                 Icons.favorite,
                                 color: Colors.pink[200],
