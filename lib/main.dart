@@ -1,7 +1,9 @@
+import 'package:apod/model/favorite_state.dart';
 import 'package:apod/pages/calendar_page.dart';
 import 'package:apod/pages/favorite_page.dart';
 import 'package:apod/pages/main_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -54,7 +56,11 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(_pages[_selectedIndex]['title']),
       ),
-      body: _pages[_selectedIndex]['widget'],
+      body: ChangeNotifierProvider(
+        create: (context) =>
+            FavoriteState(), // 在主要頁面的上層放了 FavoriteList 作為三個頁面都可共用的state
+        child: _pages[_selectedIndex]['widget'],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
