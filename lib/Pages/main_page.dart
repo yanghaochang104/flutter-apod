@@ -50,11 +50,7 @@ class _MainPageState extends State<MainPage> {
         if (snapshot.hasData) {
           ApodData? data = snapshot.data;
           return AstroPicture(
-            title: data?.title ?? '',
-            pictureUrl: data?.url ?? '',
-            desc: data?.desc ?? '',
-            note: 'Place your note here!', // 待日後將儲存的筆記放進來
-            isFavorite: false, // 待日後將收藏狀態放進來
+            apodData: data ?? ApodData('', '', '', '', '', '', false),
           );
         }
         if (snapshot.hasError) {

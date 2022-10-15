@@ -1,4 +1,8 @@
+import 'package:apod/model/favorite_state.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../model/apod_data.dart';
 
 // 定義頁面筆記模式
 enum NoteType {
@@ -7,19 +11,9 @@ enum NoteType {
 }
 
 class AstroPicture extends StatefulWidget {
-  final String title;
-  final String pictureUrl;
-  final String desc;
-  final String note;
-  final bool isFavorite;
+  final ApodData apodData;
 
-  const AstroPicture(
-      {super.key,
-      required this.title,
-      required this.pictureUrl,
-      required this.desc,
-      this.note = '',
-      this.isFavorite = false});
+  const AstroPicture({super.key, required this.apodData});
 
   @override
   State<AstroPicture> createState() => _AstroPictureState();
@@ -32,7 +26,7 @@ class _AstroPictureState extends State<AstroPicture> {
   @override
   void initState() {
     super.initState();
-    _controller.text = widget.note;
+    _controller.text = widget.apodData.note;
   }
 
   @override
@@ -50,7 +44,7 @@ class _AstroPictureState extends State<AstroPicture> {
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Text(
-            widget.title,
+            widget.apodData.title,
             style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
           ),
         ),
@@ -58,8 +52,8 @@ class _AstroPictureState extends State<AstroPicture> {
           children: [
             SizedBox(
               width: deviceScreen.width,
-              child: widget.pictureUrl.isNotEmpty
-                  ? Image.network(widget.pictureUrl, frameBuilder:
+              child: widget.apodData.url.isNotEmpty
+                  ? Image.network(widget.apodData.url, frameBuilder:
                       (context, child, frame, wasSynchronouslyLoaded) {
                       if (wasSynchronouslyLoaded) {
                         return child;
@@ -81,7 +75,7 @@ class _AstroPictureState extends State<AstroPicture> {
                       )),
                     ),
             ),
-            widget.pictureUrl.isNotEmpty
+            widget.apodData.url.isNotEmpty
                 ? Positioned(
                     top: 10.0,
                     right: 10.0,
@@ -89,9 +83,9 @@ class _AstroPictureState extends State<AstroPicture> {
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white24),
                         onPressed: () {
-                          print('add to favorite');
+                          addToFavorite(context, widget.apodData);
                         },
-                        child: widget.isFavorite
+                        child: widget.apodData.isFavorite
                             ? Icon(
                                 Icons.favorite,
                                 color: Colors.pink[200],
@@ -107,7 +101,7 @@ class _AstroPictureState extends State<AstroPicture> {
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Text(
-            widget.desc,
+            widget.apodData.desc,
             style: const TextStyle(fontSize: 16, color: Colors.blueGrey),
           ),
         ),
